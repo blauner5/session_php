@@ -19,9 +19,13 @@ $_SESSION['email'] = "";
 <?php
 $con = mysqli_connect("DB_host", "user_DB", "password_DB", "Your_DB") or die("Connessione al database non riuscita.");
 
+//array for SQL Injection protection
+$str_cerca = array(";", ";;", "'", "_", "(", ")", "()", "^");
+$str_sostituisci = array("", "", "", "", "", "", "", "");
+
 if(isset($_POST['invia'])){
-	$username = $_POST['username'];
-	$email = $_POST['email'];
+	$username = trim(str_replace($str_cerca, $str_sostituisci, $_POST['username']));
+	$email = trim(str_replace($str_cerca, $str_sostituisci, $_POST['email']));
 	$_SESSION['username'] = $username;
 	$_SESSION['email'] = $email;
 }
