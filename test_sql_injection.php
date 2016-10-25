@@ -1,6 +1,7 @@
 <?php
 
 //SQL Injection protection
+//
 $str_cerca = array(";", ";;", "'", "_", "(", ")", "()", "^", '"', '""', " or", "or ", " and", "and ");
 $str_sostituisci = array("", "", "", "", "", "", "", "", "", "", "", "", "", "");
 
