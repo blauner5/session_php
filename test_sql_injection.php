@@ -1,8 +1,8 @@
 <?php
 
 //SQL Injection protection
-$str_cerca = array(";", ";;", "'", "_", "(", ")", "()", "^");
-$str_sostituisci = array("", "", "", "", "", "", "", "");
+$str_cerca = array(";", ";;", "'", "_", "(", ")", "()", "^", '"', '""', " or", "or ", " and", "and ");
+$str_sostituisci = array("", "", "", "", "", "", "", "", "", "", "", "", "", "");
 
 if(isset($_POST['submit'])){
 	echo "Errore.";
@@ -15,6 +15,6 @@ else {
 	$nome = ucfirst(trim(str_replace($str_cerca, $str_sostituisci, $_POST['nome'])));
 	$cognome = ucfirst(trim(str_replace($str_cerca, $str_sostituisci, $_POST['cognome'])));
 	echo $nome. "\n";
-	echo $cognome. "\n";
+	echo $cognome. "\n";/
 	}
 ?>
