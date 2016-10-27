@@ -15,11 +15,14 @@ session_start();
 	</body>
 </html>
 <?php
-$con = mysqli_connect("DB_host", "user_DB", "password_DB", "Your_DB") or die("Connessione al database non riuscita.");
+
+//multiple database connection
+$con = mysqli_connect("Host", "User_DB", "Pass_DB", "Your_DB");
+$con2 = mysqli_connect("Host_2", "User_DB_2", "Pass_DB_2", "Your_DB2");
 
 //array for SQL Injection protection
-$str_cerca = array(";", ";;", "'", "_", "(", ")", "()", "^", '"', '""', " or", "or ", " and", "and ");
-$str_sostituisci = array("", "", "", "", "", "", "", "", "", "", "", "", "", "");
+$str_cerca = array(";", ";;", "'", "_", "(", ")", "()", "^", '"', '""', " or", "or ");
+$str_sostituisci = array("", "", "", "", "", "", "", "", "", "", "", "");
 
 if(isset($_POST['invia'])){
 	$_SESSION['username'] = "";
@@ -28,8 +31,20 @@ if(isset($_POST['invia'])){
 	$email = trim(str_replace($str_cerca, $str_sostituisci, $_POST['email']));
 	$_SESSION['username'] = $username;
 	$_SESSION['email'] = $email;
+
+	//check the connection to the second database
+	if(!$con2){
+		echo "<font style='color:red;'>Connessione al secondo database rifiutata</font>.<br/>";
+		mysqli_close($con2);
+	}
+	else{
+		echo "<font style='color:red;'>Connessione al secondo database riuscita</font>.<br/>";
+	}
+	//end check the connection to the second database
+
+	//check the connection to the first database
 	if(!$con){
-		echo "Connessione al database rifiutata.";
+		echo "<font style='color:red;'>Connessione al primo database rifiutata</font>.<br/>";
 		mysqli_close($con);
 	}
 	else {
@@ -53,5 +68,6 @@ if(isset($_POST['invia'])){
 			echo "Attenzione: il risultato dei campi presenti nel database cambierà in base all'utente scelto sul campo <font style='color:red;'>Username</font>.<br/>";
 		}
 	}
+	//end check the connection to the first database
 }
 ?>
