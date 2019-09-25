@@ -1,6 +1,6 @@
-#Requirements and Configuration
+# Requirements and Configuration
 
-##Requirements:
+## Requirements:
 
 -Apache<br/>
 -MySQL<br/>
